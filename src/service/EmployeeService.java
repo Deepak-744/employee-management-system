@@ -118,4 +118,9 @@ public class EmployeeService {
 
         employee.setDateJoined(newDateJoined);
     }
+
+    public void deleteEmployee(int employeeId) throws EmployeeException {
+        Employee employee = getEmployeeById(employeeId);
+        repository.removeEmployee(employee);
+    }
 }

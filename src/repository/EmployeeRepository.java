@@ -27,13 +27,9 @@ public class EmployeeRepository {
     public ArrayList<Employee> getAllEmployees() {
         return new ArrayList<>(employees);
     }
-
-    /*public boolean updateEmployee(Employee employee) {
-        return;
-    }
     
-    public boolean removeEmployee(int employeeId) {
-        return;
-    }*/
+    public void removeEmployee(Employee employee) {
+        employees.remove(employee);
+    }
 
 }

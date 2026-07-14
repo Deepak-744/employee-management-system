@@ -11,21 +11,23 @@ public class Main {
         EmployeeService service = new EmployeeService();
 
         while(true) {
-
-            System.out.println("\n===== Employee Management System =====");
-            System.out.println("1. Add Employee");
-            System.out.println("2. Display All Employees");
-            System.out.println("3. Update Employee");
-            System.out.println("4. Delete Employee");
-            System.out.println("5. Search Employee");
-            System.out.println("6. Exit");
+            System.out.println("\n======================================");
+            System.out.println("\n      EMPLOYEE MANAGEMENT SYSTEM      ");
+            System.out.println("\n======================================\n");
+            System.out.println("1. Add Employee\n");
+            System.out.println("2. Display All Employees\n");
+            System.out.println("3. Update Employee\n");
+            System.out.println("4. Delete Employee\n");
+            System.out.println("5. Search Employee\n");
+            System.out.println("6. Exit\n");
+            System.out.println("\n======================================\n");
             System.out.print("Enter your choice: ");
 
             int choice = sc.nextInt();
             sc.nextLine();
 
             switch(choice) {
-                case 1 : 
+                case 1 : {
                     System.out.print("Enter Employee ID: ");
                     int id = sc.nextInt();
                     sc.nextLine();
@@ -78,15 +80,16 @@ public class Main {
 
                     try {
                         service.addEmployee(employee);
-                        System.out.println("Employee Added Successfully");
+                        System.out.println("✓ Employee Added Successfully");
                     }
                     catch (EmployeeException e) {
                         System.out.println(e.getMessage());
                     }
                                      
                     break;
+                }
 
-                case 2 : 
+                case 2 : { 
                     ArrayList<Employee> employees = service.getAllEmployees();
                     if(employees.isEmpty()) {
                         System.out.println("No Employees Found");
@@ -97,8 +100,9 @@ public class Main {
                         }
                     }
                     break;
+                }
                 
-                case 3 :
+                case 3 : {
                     System.out.print("Enter Employee ID :");
                     int employeeId = sc.nextInt();
                     sc.nextLine();
@@ -133,7 +137,7 @@ public class Main {
 
                                     service.updateEmployeeName(existingEmployee, newName);
 
-                                    System.out.println("Name Updated Successfully.");
+                                    System.out.println("✓ Name Updated Successfully.");
                                     System.out.println(existingEmployee);
                                     break;
 
@@ -144,7 +148,7 @@ public class Main {
 
                                     service.updateEmployeeAge(existingEmployee, newAge);
 
-                                    System.out.println("Age Updated Successfully.");
+                                    System.out.println("✓ Age Updated Successfully.");
                                     System.out.println(existingEmployee);
                                     break;
 
@@ -154,7 +158,7 @@ public class Main {
 
                                     service.updateEmployeeGender(existingEmployee, newGender);
 
-                                    System.out.println("Gender Updated Successfully.");
+                                    System.out.println("✓ Gender Updated Successfully.");
                                     System.out.println(existingEmployee);
                                     break;
 
@@ -164,7 +168,7 @@ public class Main {
 
                                     service.updateEmployeeEmail(existingEmployee, newEmail);
 
-                                    System.out.println("Email Updated Successfully.");
+                                    System.out.println("✓ Email Updated Successfully.");
                                     System.out.println(existingEmployee);
                                     break;
 
@@ -174,7 +178,7 @@ public class Main {
 
                                     service.updateEmployeePhoneNumber(existingEmployee, newPhoneNumber);
 
-                                    System.out.println("Phone Number Updated Successfully.");
+                                    System.out.println("✓ Phone Number Updated Successfully.");
                                     System.out.println(existingEmployee);
                                     break;
 
@@ -184,7 +188,7 @@ public class Main {
 
                                     service.updateEmployeeDepartment(existingEmployee, newDepartment);
 
-                                    System.out.println("Department Updated Successfully.");
+                                    System.out.println("✓ Department Updated Successfully.");
                                     System.out.println(existingEmployee);
                                     break;
 
@@ -194,7 +198,7 @@ public class Main {
 
                                     service.updateEmployeeJobTitle(existingEmployee, newJobTitle);
 
-                                    System.out.println("Job Title Updated Successfully.");
+                                    System.out.println("✓ Job Title Updated Successfully.");
                                     System.out.println(existingEmployee);
                                     break;
 
@@ -205,7 +209,7 @@ public class Main {
 
                                     service.updateEmployeeSalary(existingEmployee, newSalary);
 
-                                    System.out.println("Salary Updated Successfully.");
+                                    System.out.println("✓ Salary Updated Successfully.");
                                     System.out.println(existingEmployee);
                                     break;
 
@@ -216,7 +220,7 @@ public class Main {
 
                                     service.updateEmployeeExperience(existingEmployee, newExperience);
 
-                                    System.out.println("Experience Updated Successfully.");
+                                    System.out.println("✓ Experience Updated Successfully.");
                                     System.out.println(existingEmployee);
                                     break;
 
@@ -226,7 +230,7 @@ public class Main {
 
                                     service.updateEmployeeDateJoined(existingEmployee, newDateJoined);
 
-                                    System.out.println("Joining Date Updated Successfully.");
+                                    System.out.println("✓ Joining Date Updated Successfully.");
                                     System.out.println(existingEmployee);
                                     break;
 
@@ -243,10 +247,40 @@ public class Main {
                         System.out.println(e.getMessage());
                     }
                     break;
+                }
 
-                case 6 :
+                case 4 : {
+                    System.out.print("Enter Employee ID :");
+                    int employeeId = sc.nextInt();
+                    sc.nextLine();
+                    try {
+                        service.deleteEmployee(employeeId);
+                        System.out.println("✓ Employee Deleted Successfully");
+                    }
+                    catch(EmployeeException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                }
+
+                case 5 : {
+                    System.out.print("Enter Employee ID :");
+                    int employeeId = sc.nextInt();
+                    sc.nextLine();
+                    try {
+                        Employee employee = service.getEmployeeById(employeeId);
+                        System.out.println(employee);
+                    }
+                    catch(EmployeeException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                }
+
+                case 6 : {
                     System.out.println("Thank You!");
                     return;
+                }
 
                 default :
                     System.out.println("Invalid Choice");
