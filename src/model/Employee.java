@@ -41,6 +41,20 @@ public class Employee {
         this.dateJoined = dateJoined;
     }
 
+    public Employee(String[] employeeData) {
+        this.employeeId = Integer.parseInt(employeeData[0]);
+        this.name = employeeData[1];
+        this.age = Integer.parseInt(employeeData[2]);
+        this.gender = employeeData[3];
+        this.email = employeeData[4];
+        this.phoneNumber = employeeData[5];
+        this.department = employeeData[6];
+        this.jobTitle = employeeData[7];
+        this.salary = Double.parseDouble(employeeData[8]);
+        this.experience = Integer.parseInt(employeeData[9]);
+        this.dateJoined = employeeData[10];
+    }
+
     public int getEmployeeId() {
         return employeeId;
     }
@@ -144,6 +158,20 @@ public class Employee {
                 ", experience = " + experience +
                 ", dateJoined = '" + dateJoined + '\'' +
                 '}';
+    }
+
+    public String toCsv() {
+         return employeeId + "," +
+                name + "," +
+                age + "," +
+                gender + "," +
+                email + "," +
+                phoneNumber + "," +
+                department + "," +
+                jobTitle + "," +
+                salary + "," +
+                experience + "," +
+                dateJoined;
     }
 }
 

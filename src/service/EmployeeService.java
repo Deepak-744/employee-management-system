@@ -14,22 +14,102 @@ public class EmployeeService {
         repository = new EmployeeRepository();
     }
 
+    private void validateEmployeeExists(Employee employee)
+            throws EmployeeException {
+
+        if(employee == null) {
+            throw new EmployeeException("Employee doesn't exist.");
+        }
+    }
+
+    private void validateName(String name)
+            throws EmployeeException {
+
+        if(name.trim().isEmpty()) {
+            throw new EmployeeException("Name cannot be empty.");
+        }
+    }
+
+    private void validateAge(int age)
+            throws EmployeeException {
+
+        if(age < 18) {
+            throw new EmployeeException("Employee must be atleast 18 years old.");
+        }
+    }
+
+    private void validateSalary(double salary)
+            throws EmployeeException {
+
+        if(salary <= 0) {
+            throw new EmployeeException("Salary must be greater than 0.");
+        }
+    }
+
+    private void validateGender(String gender)
+            throws EmployeeException {
+
+        if(gender.trim().isEmpty()) {
+            throw new EmployeeException("Gender cannot be empty.");
+        }
+    }
+
+    private void validateEmail(String email)
+            throws EmployeeException {
+
+        if(email.trim().isEmpty()) {
+            throw new EmployeeException("Email cannot be empty.");
+        }
+    }
+
+    private void validatePhoneNumber(String phoneNumber)
+            throws EmployeeException {
+
+        if(phoneNumber.trim().isEmpty()) {
+            throw new EmployeeException("Phone Number cannot be empty.");
+        }
+    }
+
+    private void validateDepartment(String department)
+            throws EmployeeException {
+
+        if(department.trim().isEmpty()) {
+            throw new EmployeeException("Department cannot be empty.");
+        }
+    }
+
+    private void validateJobTitle(String jobTitle)
+            throws EmployeeException {
+
+        if(jobTitle.trim().isEmpty()) {
+            throw new EmployeeException("Job Title cannot be empty.");
+        }
+    }
+
+    private void validateExperience(int experience)
+            throws EmployeeException {
+
+        if(experience < 0) {
+            throw new EmployeeException("Experience cannot be negative.");
+        }
+    }
+
+    private void validateDateJoined(String dateJoined)
+            throws EmployeeException {
+
+        if(dateJoined.trim().isEmpty()) {
+            throw new EmployeeException("Joining Date cannot be empty.");
+        }
+    }
+
     public void addEmployee(Employee employee) throws EmployeeException {
         if(repository.getEmployeeById(employee.getEmployeeId()) != null) {
             throw new EmployeeException("Employee ID already exists.");
         }
 
-        if(employee.getSalary() <= 0) {
-            throw new EmployeeException("Salary must be greater than 0.");
-        }
-
-        if(employee.getAge() < 18) {
-            throw new EmployeeException("Employee must be atleast 18 years old.");
-        }
-
-        if(employee.getName().trim().isEmpty()) {
-            throw new EmployeeException("Name cannot be empty.");
-        }
+        validateSalary(employee.getSalary());
+        validateAge(employee.getAge());
+        validateName(employee.getName());
         
         repository.addEmployee(employee);
     }
@@ -40,83 +120,68 @@ public class EmployeeService {
 
     public Employee getEmployeeById(int employeeId) throws EmployeeException {
         Employee employee = repository.getEmployeeById(employeeId);
-
-        if(employee == null)
-            throw new EmployeeException("Employee doesn't exist");
-
+        validateEmployeeExists(employee);
         return employee;
     }
 
     public void updateEmployeeName(Employee employee, String newName) throws EmployeeException {
-        if(newName.trim().isEmpty()) {
-            throw new EmployeeException("Name cannot be empty.");
-        }
-       employee.setName(newName);
+        validateName(newName);
+        employee.setName(newName);
+        repository.save();
     }
 
     public void updateEmployeeAge(Employee employee, int newAge) throws EmployeeException {
-        if(newAge < 18) {
-            throw new EmployeeException("Employee must be atleast 18 years old.");
-        }
-
+        validateAge(newAge);
         employee.setAge(newAge);
+        repository.save();
     }
 
     public void updateEmployeeGender(Employee employee, String newGender) throws EmployeeException {
-        if(newGender.trim().isEmpty())
-            throw new EmployeeException("Gender cannot be empty");
-
+        validateGender(newGender);
         employee.setGender(newGender);
+        repository.save();
     }
 
     public void updateEmployeeEmail(Employee employee, String newEmail) throws EmployeeException {
-        if(newEmail.trim().isEmpty())
-            throw new EmployeeException("Email cannot be empty");
-
+        validateEmail(newEmail);
         employee.setEmail(newEmail);
+        repository.save();
     }
 
     public void updateEmployeePhoneNumber(Employee employee, String newPhoneNumber) throws EmployeeException {
-        if(newPhoneNumber.trim().isEmpty())
-            throw new EmployeeException("PhoneNumber cannot be empty");
-
+        validatePhoneNumber(newPhoneNumber);
         employee.setPhoneNumber(newPhoneNumber);
+        repository.save();
     }
 
     public void updateEmployeeDepartment(Employee employee, String newDepartment) throws EmployeeException {
-        if(newDepartment.trim().isEmpty())
-            throw new EmployeeException("Department cannot be empty");
-
+        validateDepartment(newDepartment);
         employee.setDepartment(newDepartment);
+        repository.save();
     }
 
     public void updateEmployeeJobTitle(Employee employee, String newJobTitle) throws EmployeeException {
-        if(newJobTitle.trim().isEmpty())
-            throw new EmployeeException("JobTitle cannot be empty");
-
+        validateJobTitle(newJobTitle);
         employee.setJobTitle(newJobTitle);
+        repository.save();
     }
 
     public void updateEmployeeSalary(Employee employee, double newSalary) throws EmployeeException {
-        if(newSalary<=0) {
-            throw new EmployeeException("Salary must be greater than 0.");
-        }
-
+        validateSalary(newSalary);
         employee.setSalary(newSalary);
+        repository.save();
     }
 
     public void updateEmployeeExperience(Employee employee, int newExperience) throws EmployeeException {
-        if(newExperience < 0)
-            throw new EmployeeException("Experience cannot be negative");
-
+        validateExperience(newExperience);
         employee.setExperience(newExperience);
+        repository.save();
     }
 
     public void updateEmployeeDateJoined(Employee employee, String newDateJoined) throws EmployeeException {
-        if(newDateJoined.trim().isEmpty())
-            throw new EmployeeException("Joining Date cannot be empty");
-
+        validateDateJoined(newDateJoined);
         employee.setDateJoined(newDateJoined);
+        repository.save();
     }
 
     public void deleteEmployee(int employeeId) throws EmployeeException {
