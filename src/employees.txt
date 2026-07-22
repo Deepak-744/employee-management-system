@@ -1,2 +1,0 @@
-101,Deepak Namala,19,Male,deepaknamala99@gmail.com,9963021034,CSE,Intern,50000.0,1,15-07-2026
-102,Sharath Kanuri,18,Male,sharathkanuri007@gmail.com,9182061453,CSE,Intern,50000.0,1,15-07-2026

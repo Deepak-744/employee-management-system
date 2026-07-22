@@ -1,17 +1,21 @@
 package model;
 
+import enums.Gender;
+
+import java.time.LocalDate;
+
 public class Employee {
     private int employeeId;
     private String name;
     private int age;
-    private String gender;
+    private Gender gender;
     private String email;
     private String phoneNumber;
     private String department;
     private String jobTitle;
     private double salary;
     private int experience;
-    private String dateJoined;
+    private LocalDate dateJoined;
 
     public Employee() {
 
@@ -20,14 +24,14 @@ public class Employee {
     public Employee(int employeeId, 
                     String name, 
                     int age, 
-                    String gender, 
+                    Gender gender, 
                     String email, 
                     String phoneNumber, 
                     String department, 
                     String jobTitle, 
                     double salary, 
                     int experience, 
-                    String dateJoined) {
+                    LocalDate dateJoined) {
         this.employeeId = employeeId;
         this.name = name;
         this.age = age;
@@ -41,18 +45,26 @@ public class Employee {
         this.dateJoined = dateJoined;
     }
 
-    public Employee(String[] employeeData) {
-        this.employeeId = Integer.parseInt(employeeData[0]);
-        this.name = employeeData[1];
-        this.age = Integer.parseInt(employeeData[2]);
-        this.gender = employeeData[3];
-        this.email = employeeData[4];
-        this.phoneNumber = employeeData[5];
-        this.department = employeeData[6];
-        this.jobTitle = employeeData[7];
-        this.salary = Double.parseDouble(employeeData[8]);
-        this.experience = Integer.parseInt(employeeData[9]);
-        this.dateJoined = employeeData[10];
+    public Employee(String name,
+                    int age,
+                    Gender gender,
+                    String email,
+                    String phoneNumber,
+                    String department,
+                    String jobTitle,
+                    double salary,
+                    int experience,
+                    LocalDate dateJoined) {
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.department = department;
+        this.jobTitle = jobTitle;
+        this.salary = salary;
+        this.experience = experience;
+        this.dateJoined = dateJoined;
     }
 
     public int getEmployeeId() {
@@ -67,7 +79,7 @@ public class Employee {
         return age;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
@@ -95,7 +107,7 @@ public class Employee {
         return experience;
     }
 
-    public String getDateJoined() {
+    public LocalDate getDateJoined() {
         return dateJoined;
     }
 
@@ -111,7 +123,7 @@ public class Employee {
         this.age = age;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 
@@ -139,7 +151,7 @@ public class Employee {
         this.experience = experience;
     }
 
-    public void setDateJoined(String dateJoined) {
+    public void setDateJoined(LocalDate dateJoined) {
         this.dateJoined = dateJoined;
     }
 
@@ -160,18 +172,5 @@ public class Employee {
                 '}';
     }
 
-    public String toCsv() {
-         return employeeId + "," +
-                name + "," +
-                age + "," +
-                gender + "," +
-                email + "," +
-                phoneNumber + "," +
-                department + "," +
-                jobTitle + "," +
-                salary + "," +
-                experience + "," +
-                dateJoined;
-    }
 }
 

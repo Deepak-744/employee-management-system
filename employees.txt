@@ -1,0 +1,5 @@
+101,Deepak,18,Male,deepak@gmail.com,9963021034,CSE,Intern,50000.0,1,16-07-2026
+102,Sharath,18,Male,sharath@gmail.com,9618373794,CSE,Intern,50000.0,1,16-07-2026
+103,Chandan,18,Male,chandan@gmail,8674598766,CSE,Intern,60000.0,1,16-07-2026
+104,Kala,43,Female,kala@gmail.com,8366472876,CSE,Senior,100000.0,3,16-07-2023
+105,Ujjwali,18,Female,ujjwali@gmail.com,8747439020,CSE,Intern,80000.0,1,17-07-2026

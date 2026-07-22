@@ -1,9 +1,11 @@
 import model.Employee;
 import service.EmployeeService;
 import exception.EmployeeException;
+import enums.Gender;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
@@ -14,12 +16,12 @@ public class Main {
             System.out.println("\n======================================");
             System.out.println("\n      EMPLOYEE MANAGEMENT SYSTEM      ");
             System.out.println("\n======================================\n");
-            System.out.println("1. Add Employee\n");
-            System.out.println("2. Display All Employees\n");
-            System.out.println("3. Update Employee\n");
-            System.out.println("4. Delete Employee\n");
-            System.out.println("5. Search Employee\n");
-            System.out.println("6. Exit\n");
+            System.out.println("1. Add Employee");
+            System.out.println("2. Display All Employees");
+            System.out.println("3. Update Employee");
+            System.out.println("4. Delete Employee");
+            System.out.println("5. Search Employee");
+            System.out.println("6. Exit");
             System.out.println("\n======================================\n");
             System.out.print("Enter your choice: ");
 
@@ -28,9 +30,6 @@ public class Main {
 
             switch(choice) {
                 case 1 : {
-                    System.out.print("Enter Employee ID: ");
-                    int id = sc.nextInt();
-                    sc.nextLine();
 
                     System.out.print("Enter Name: ");
                     String name = sc.nextLine();
@@ -40,7 +39,7 @@ public class Main {
                     sc.nextLine();
 
                     System.out.print("Enter Gender: ");
-                    String gender = sc.nextLine();
+                    Gender gender = Gender.valueOf(sc.nextLine().toUpperCase());
 
                     System.out.print("Enter Email: ");
                     String email = sc.nextLine();
@@ -61,11 +60,10 @@ public class Main {
                     int experience = sc.nextInt();
                     sc.nextLine();
 
-                    System.out.print("Enter Date Joined: ");
-                    String dateJoined = sc.nextLine();
+                    System.out.print("Enter Date Joined (yyyy-MM-dd): ");
+                    LocalDate dateJoined = LocalDate.parse(sc.nextLine());
 
                     Employee employee = new Employee(
-                            id,
                             name,
                             age,
                             gender,
@@ -79,8 +77,10 @@ public class Main {
                     );
 
                     try {
-                        service.addEmployee(employee);
-                        System.out.println("✓ Employee Added Successfully");
+                        int rows = service.addEmployee(employee);
+                        if (rows == 1) {
+                            System.out.println("[SUCCESS] Employee Added Successfully");
+                        }
                     }
                     catch (EmployeeException e) {
                         System.out.println(e.getMessage());
@@ -90,14 +90,19 @@ public class Main {
                 }
 
                 case 2 : { 
-                    ArrayList<Employee> employees = service.getAllEmployees();
-                    if(employees.isEmpty()) {
-                        System.out.println("No Employees Found");
-                    }
-                    else {
-                        for(Employee emp : employees) {
-                            System.out.println(emp);
+                    try {
+                        ArrayList<Employee> employees = service.getAllEmployees();
+                        if(employees.isEmpty()) {
+                            System.out.println("No Employees Found");
                         }
+                        else {
+                            for(Employee emp : employees) {
+                                System.out.println(emp);
+                            }
+                        }
+                    }
+                    catch(EmployeeException e) {
+                        System.out.println(e.getMessage());
                     }
                     break;
                 }
@@ -107,7 +112,6 @@ public class Main {
                     int employeeId = sc.nextInt();
                     sc.nextLine();
                     try {
-                        Employee existingEmployee = service.getEmployeeById(employeeId);
                         boolean updateMenu = true;
 
                         while (updateMenu) {
@@ -135,10 +139,10 @@ public class Main {
                                     System.out.print("Enter New Name: ");
                                     String newName = sc.nextLine();
 
-                                    service.updateEmployeeName(existingEmployee, newName);
+                                    service.updateEmployeeName(employeeId, newName);
 
-                                    System.out.println("✓ Name Updated Successfully.");
-                                    System.out.println(existingEmployee);
+                                    System.out.println("[SUCCESS] Name Updated Successfully.");
+                                    System.out.println(service.getEmployeeById(employeeId));
                                     break;
 
                                 case 2:
@@ -146,60 +150,60 @@ public class Main {
                                     int newAge = sc.nextInt();
                                     sc.nextLine();
 
-                                    service.updateEmployeeAge(existingEmployee, newAge);
+                                    service.updateEmployeeAge(employeeId, newAge);
 
-                                    System.out.println("✓ Age Updated Successfully.");
-                                    System.out.println(existingEmployee);
+                                    System.out.println("[SUCCESS] Age Updated Successfully.");
+                                    System.out.println(service.getEmployeeById(employeeId));
                                     break;
 
                                 case 3:
                                     System.out.print("Enter Gender: ");
-                                    String newGender = sc.nextLine();
+                                    Gender newGender = Gender.valueOf(sc.nextLine().toUpperCase());
 
-                                    service.updateEmployeeGender(existingEmployee, newGender);
+                                    service.updateEmployeeGender(employeeId, newGender);
 
-                                    System.out.println("✓ Gender Updated Successfully.");
-                                    System.out.println(existingEmployee);
+                                    System.out.println("[SUCCESS] Gender Updated Successfully.");
+                                    System.out.println(service.getEmployeeById(employeeId));
                                     break;
 
                                 case 4:
                                     System.out.print("Enter New Email: ");
                                     String newEmail = sc.nextLine();
 
-                                    service.updateEmployeeEmail(existingEmployee, newEmail);
+                                    service.updateEmployeeEmail(employeeId, newEmail);
 
-                                    System.out.println("✓ Email Updated Successfully.");
-                                    System.out.println(existingEmployee);
+                                    System.out.println("[SUCCESS] Email Updated Successfully.");
+                                    System.out.println(service.getEmployeeById(employeeId));
                                     break;
 
                                 case 5:
                                     System.out.print("Enter New Phone Number: ");
                                     String newPhoneNumber = sc.nextLine();
 
-                                    service.updateEmployeePhoneNumber(existingEmployee, newPhoneNumber);
+                                    service.updateEmployeePhoneNumber(employeeId, newPhoneNumber);
 
-                                    System.out.println("✓ Phone Number Updated Successfully.");
-                                    System.out.println(existingEmployee);
+                                    System.out.println("[SUCCESS] Phone Number Updated Successfully.");
+                                    System.out.println(service.getEmployeeById(employeeId));
                                     break;
 
                                 case 6:
                                     System.out.print("Enter New Department: ");
                                     String newDepartment = sc.nextLine();
 
-                                    service.updateEmployeeDepartment(existingEmployee, newDepartment);
+                                    service.updateEmployeeDepartment(employeeId, newDepartment);
 
-                                    System.out.println("✓ Department Updated Successfully.");
-                                    System.out.println(existingEmployee);
+                                    System.out.println("[SUCCESS] Department Updated Successfully.");
+                                    System.out.println(service.getEmployeeById(employeeId));
                                     break;
 
                                 case 7:
                                     System.out.print("Enter New Job Title: ");
                                     String newJobTitle = sc.nextLine();
 
-                                    service.updateEmployeeJobTitle(existingEmployee, newJobTitle);
+                                    service.updateEmployeeJobTitle(employeeId, newJobTitle);
 
-                                    System.out.println("✓ Job Title Updated Successfully.");
-                                    System.out.println(existingEmployee);
+                                    System.out.println("[SUCCESS] Job Title Updated Successfully.");
+                                    System.out.println(service.getEmployeeById(employeeId));
                                     break;
 
                                 case 8:
@@ -207,10 +211,10 @@ public class Main {
                                     double newSalary = sc.nextDouble();
                                     sc.nextLine();
 
-                                    service.updateEmployeeSalary(existingEmployee, newSalary);
+                                    service.updateEmployeeSalary(employeeId, newSalary);
 
-                                    System.out.println("✓ Salary Updated Successfully.");
-                                    System.out.println(existingEmployee);
+                                    System.out.println("[SUCCESS] Salary Updated Successfully.");
+                                    System.out.println(service.getEmployeeById(employeeId));
                                     break;
 
                                 case 9:
@@ -218,20 +222,20 @@ public class Main {
                                     int newExperience = sc.nextInt();
                                     sc.nextLine();
 
-                                    service.updateEmployeeExperience(existingEmployee, newExperience);
+                                    service.updateEmployeeExperience(employeeId, newExperience);
 
-                                    System.out.println("✓ Experience Updated Successfully.");
-                                    System.out.println(existingEmployee);
+                                    System.out.println("[SUCCESS] Experience Updated Successfully.");
+                                    System.out.println(service.getEmployeeById(employeeId));
                                     break;
 
                                 case 10:
-                                    System.out.print("Enter new Joining Date: ");
-                                    String newDateJoined = sc.nextLine();
+                                    System.out.print("Enter New Joining Date (yyyy-MM-dd): ");
+                                    LocalDate newDateJoined = LocalDate.parse(sc.nextLine());
 
-                                    service.updateEmployeeDateJoined(existingEmployee, newDateJoined);
+                                    service.updateEmployeeDateJoined(employeeId, newDateJoined);
 
-                                    System.out.println("✓ Joining Date Updated Successfully.");
-                                    System.out.println(existingEmployee);
+                                    System.out.println("[SUCCESS] Joining Date Updated Successfully.");
+                                    System.out.println(service.getEmployeeById(employeeId));
                                     break;
 
                                 case 11:
@@ -255,7 +259,7 @@ public class Main {
                     sc.nextLine();
                     try {
                         service.deleteEmployee(employeeId);
-                        System.out.println("✓ Employee Deleted Successfully");
+                        System.out.println("[SUCCESS] Employee Deleted Successfully");
                     }
                     catch(EmployeeException e) {
                         System.out.println(e.getMessage());
@@ -279,6 +283,7 @@ public class Main {
 
                 case 6 : {
                     System.out.println("Thank You!");
+                    sc.close();
                     return;
                 }
 
